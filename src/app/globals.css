@@ -1,29 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f9fa;
-  --foreground: #191c1d;
+  --background: #fdfeff;
+  --foreground: #334155;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-plus-jakarta);
-  --color-surface: #f8f9fa;
+  --color-surface: #fdfeff;
   --color-surface-lowest: #ffffff;
-  --color-surface-low: #f3f4f5;
-  --color-surface-container: #edeeef;
-  --color-surface-high: #e7e8e9;
-  --color-surface-highest: #e1e3e4;
-  --color-ink: #191c1d;
-  --color-ink-soft: #404945;
-  --color-mint: #b9eedb;
-  --color-mint-deep: #366758;
-  --color-lavender: #efdcf7;
-  --color-lavender-deep: #685970;
-  --color-peach: #ffdcbc;
-  --color-peach-deep: #75593c;
-  --color-coral: #ffdad6;
+  --color-surface-low: #f6f8fb;
+  --color-surface-container: #eef5fb;
+  --color-surface-high: #e6edf5;
+  --color-surface-highest: #dbe6f0;
+  --color-ink: #334155;
+  --color-ink-soft: #7b8794;
+  --color-mint: #b9f5dd;
+  --color-mint-deep: #34c99f;
+  --color-lavender: #e8e2ff;
+  --color-lavender-deep: #9b8cff;
+  --color-peach: #ffe1ef;
+  --color-peach-deep: #f472b6;
+  --color-coral: #ffdedf;
+  --color-coral-deep: #f26f7f;
+  --color-sky: #dff3ff;
+  --color-sky-deep: #5ab8f6;
+  --color-aqua-deep: #43c8d8;
 }
 
 body {
@@ -57,7 +61,7 @@ textarea {
   }
 
   .glass-bar {
-    background: rgba(248, 249, 250, 0.84);
+    background: rgba(253, 254, 255, 0.86);
     backdrop-filter: blur(10px);
   }
 
@@ -67,16 +71,26 @@ textarea {
     border: 2px solid transparent;
     background: #f1f3f5;
     padding: 1rem 1.25rem;
-    color: #191c1d;
+    color: #334155;
     transition:
       border-color 160ms ease,
       transform 160ms ease;
   }
 
   .field:focus {
-    border-color: #b9eedb;
+    border-color: #8eeccc;
     transform: scale(1.005);
     box-shadow: none;
+  }
+
+  .score-input {
+    appearance: textfield;
+  }
+
+  .score-input::-webkit-outer-spin-button,
+  .score-input::-webkit-inner-spin-button {
+    margin: 0;
+    appearance: none;
   }
 
   .primary-button {
@@ -85,12 +99,13 @@ textarea {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    border: 1px solid #dbe6f0;
     border-radius: 0;
-    background: #b9eedb;
+    background: #ffffff;
     padding: 0.85rem 1.35rem;
     font-size: 0.875rem;
     font-weight: 650;
-    color: #002018;
+    color: #334155;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     transition:
       transform 160ms ease,
@@ -98,7 +113,9 @@ textarea {
   }
 
   .primary-button:hover {
-    background: #9dd1bf;
+    background: #ffffff;
+    border-color: #b7c6d6;
+    color: #334155;
   }
 
   .primary-button:active {
@@ -108,6 +125,18 @@ textarea {
   .primary-button:disabled {
     cursor: not-allowed;
     opacity: 0.65;
+  }
+
+  .bet-submit-button {
+    border-color: #b9f5dd;
+    background: #dffbea;
+    color: #334155;
+  }
+
+  .bet-submit-button:hover {
+    border-color: #9df0cc;
+    background: #d2f7e2;
+    color: #334155;
   }
 
   .secondary-button,
@@ -123,13 +152,13 @@ textarea {
     padding: 0.625rem 1rem;
     font-size: 0.875rem;
     font-weight: 600;
-    color: #404945;
+    color: #6f7a89;
   }
 
   .secondary-button:hover,
   .icon-link:hover {
-    border-color: #b9eedb;
-    color: #366758;
+    border-color: #b7c6d6;
+    color: #334155;
   }
 
   .surface-card {
@@ -140,10 +169,11 @@ textarea {
 
   .surface-chip {
     border-radius: 0;
-    background: #f3f4f5;
+    background: #ffffff;
+    border: 1px solid #e7e8e9;
     padding: 0.5rem 0.9rem;
     font-size: 0.8125rem;
     font-weight: 650;
-    color: #404945;
+    color: #6f7a89;
   }
 }

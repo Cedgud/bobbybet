@@ -10,6 +10,8 @@ type MatchCardProps = {
   kickoffAt: Date;
   groupName?: string | null;
   disabled: boolean;
+  closed?: boolean;
+  locked?: boolean;
   homeScore?: number;
   awayScore?: number;
   stakeAmount?: number;
@@ -17,9 +19,9 @@ type MatchCardProps = {
   returnTo?: string;
 };
 
-export function MatchCard({ id, homeTeam, awayTeam, kickoffAt, groupName, disabled, homeScore, awayScore, stakeAmount, bettorsCount = 0, returnTo }: MatchCardProps) {
+export function MatchCard({ id, homeTeam, awayTeam, kickoffAt, groupName, disabled, closed = false, locked = false, homeScore, awayScore, stakeAmount, bettorsCount = 0, returnTo }: MatchCardProps) {
   return (
-    <article className="surface-card border-l-4 border-mint p-5 transition-transform duration-200 hover:-translate-y-0.5">
+    <article className="surface-card border-l-4 border-surface-high p-5 transition-transform duration-200 hover:-translate-y-0.5">
       <Link className="block" href={`/matches/${id}`}>
         <div className="mb-5 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xs font-bold text-ink-soft">
@@ -37,16 +39,16 @@ export function MatchCard({ id, homeTeam, awayTeam, kickoffAt, groupName, disabl
 
         <div className="mb-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-center">
           <TeamName name={homeTeam} />
-          <span className="text-2xl font-extrabold text-ink-soft/20">VS</span>
+          <span className="text-2xl font-extrabold text-ink-soft/25">VS</span>
           <TeamName name={awayTeam} />
         </div>
 
-        <p className="mb-5 bg-surface-low px-3 py-2 text-center text-xs font-bold text-ink-soft">
+        <p className="mb-5 border border-surface-high bg-white px-3 py-2 text-center text-xs font-bold text-ink-soft">
           {bettorsCount} {bettorsCount > 1 ? "parieurs" : "parieur"} sur ce match
         </p>
       </Link>
 
-      <BetForm matchId={id} disabled={disabled} homeScore={homeScore} awayScore={awayScore} stakeAmount={stakeAmount} returnTo={returnTo} />
+      <BetForm matchId={id} disabled={disabled} closed={closed} locked={locked} homeScore={homeScore} awayScore={awayScore} stakeAmount={stakeAmount} returnTo={returnTo} />
     </article>
   );
 }
@@ -61,12 +63,12 @@ function TeamName({ name }: { name: string }) {
 
 function teamColorClass(name: string) {
   const classes = [
-    "bg-mint text-mint-deep",
-    "bg-lavender text-lavender-deep",
-    "bg-peach text-peach-deep",
-    "bg-coral text-[#7a4b47]",
-    "bg-[#d8ecff] text-[#315f78]",
-    "bg-[#fff2b8] text-[#6c5d19]",
+    "text-sky-deep",
+    "text-mint-deep",
+    "text-peach-deep",
+    "text-coral-deep",
+    "text-lavender-deep",
+    "text-aqua-deep",
   ];
   const index = name.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0) % classes.length;
   return classes[index];

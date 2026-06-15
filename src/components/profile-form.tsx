@@ -29,7 +29,7 @@ export function ProfileForm({
       </label>
       <label className="flex flex-col gap-2 text-xs font-bold uppercase tracking-[0.12em] text-ink-soft">
         Avatar
-        <span className="flex items-center gap-3 border-2 border-dashed border-surface-high bg-surface-low px-4 py-4 text-ink-soft">
+        <span className="flex items-center gap-3 border-2 border-dashed border-surface-high bg-white px-4 py-4 text-ink-soft">
           <Camera size={18} />
           <input className="w-full text-sm" name="avatar" type="file" accept="image/png,image/jpeg,image/webp" />
         </span>

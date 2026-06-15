@@ -39,19 +39,20 @@ export default async function MatchPage({ params }: MatchPageProps) {
   }
 
   const myBet = session?.user?.id ? match.bets.find((bet) => bet.userId === session.user.id) : null;
+  const matchClosed = match.kickoffAt <= new Date() || match.status !== "SCHEDULED" || match.homeScore !== null || match.awayScore !== null || match.winner !== null;
 
   return (
     <div className="min-h-screen bg-background pb-28 text-ink">
       <SiteHeader />
       <main className="mx-auto w-full max-w-[920px] px-4 pt-24 sm:px-6">
-        <Link className="mb-4 inline-flex items-center gap-2 text-sm font-bold text-mint-deep" href="/#matchs">
+        <Link className="mb-4 inline-flex items-center gap-2 text-sm font-bold text-ink-soft" href="/#matchs">
           <ArrowLeft size={17} />
           Retour aux paris du jour
         </Link>
 
         <section className="surface-card bg-white p-5 sm:p-7">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <span className="surface-chip bg-mint text-mint-deep">
+            <span className="surface-chip text-ink-soft">
               <Trophy size={15} />
               {match.groupName ?? match.competition}
             </span>
@@ -69,7 +70,7 @@ export default async function MatchPage({ params }: MatchPageProps) {
 
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-center">
             <TeamName name={match.homeTeam} />
-            <span className="text-3xl font-extrabold text-ink-soft/20">VS</span>
+            <span className="text-3xl font-extrabold text-ink-soft/25">VS</span>
             <TeamName name={match.awayTeam} />
           </div>
         </section>
@@ -78,7 +79,7 @@ export default async function MatchPage({ params }: MatchPageProps) {
           <div className="surface-card p-5">
             <div className="mb-5 flex items-center justify-between">
               <h1 className="text-2xl font-extrabold text-ink">Parieurs</h1>
-              <span className="flex items-center gap-2 bg-surface-low px-3 py-2 text-xs font-bold text-ink-soft">
+              <span className="flex items-center gap-2 border border-surface-high bg-white px-3 py-2 text-xs font-bold text-ink-soft">
                 <UsersRound size={15} />
                 {match.bets.length}
               </span>
@@ -97,7 +98,7 @@ export default async function MatchPage({ params }: MatchPageProps) {
                 ))}
               </div>
             ) : (
-              <p className="bg-surface-low p-4 text-sm font-semibold text-ink-soft">Personne n&apos;a encore parié sur ce match.</p>
+              <p className="border border-surface-high bg-white p-4 text-sm font-semibold text-ink-soft">Personne n&apos;a encore parié sur ce match.</p>
             )}
           </div>
 
@@ -109,6 +110,8 @@ export default async function MatchPage({ params }: MatchPageProps) {
             <BetForm
               matchId={match.id}
               disabled={!session?.user}
+              closed={matchClosed}
+              locked={Boolean(myBet)}
               homeScore={myBet?.predictedHomeScore}
               awayScore={myBet?.predictedAwayScore}
               stakeAmount={myBet?.stakeAmount}
@@ -127,6 +130,7 @@ function TeamName({ name }: { name: string }) {
 }
 
 function BettorMiniProfile({ pseudo, vibe, avatarUrl, stake }: { pseudo: string; vibe: string; avatarUrl?: string | null; stake: number }) {
+  const userColor = userColorClass(pseudo);
   const initials = pseudo
     .split(" ")
     .map((part) => part[0])
@@ -135,13 +139,13 @@ function BettorMiniProfile({ pseudo, vibe, avatarUrl, stake }: { pseudo: string;
     .toUpperCase();
 
   return (
-    <article className="group relative flex items-center gap-3 bg-surface-low p-3" title={vibe || "Score parfait en vue"}>
-      <div className="relative grid size-12 shrink-0 place-items-center overflow-hidden rounded-full bg-peach text-sm font-extrabold text-peach-deep">
+    <article className="group relative flex items-center gap-3 border border-surface-high bg-white p-3" title={vibe || "Score parfait en vue"}>
+      <div className={`relative grid size-12 shrink-0 place-items-center overflow-hidden rounded-full border bg-white text-sm font-extrabold ${userColor}`}>
         {avatarUrl ? <Image src={avatarUrl} alt="" fill sizes="48px" className="object-cover" /> : <span>{initials}</span>}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-extrabold text-ink">{pseudo}</p>
-        <p className="flex items-center gap-1 text-xs font-bold text-mint-deep">
+        <p className={`truncate text-sm font-extrabold ${userColor}`}>{pseudo}</p>
+        <p className="flex items-center gap-1 text-xs font-bold text-ink-soft">
           <Coins size={14} />
           {stake} jetons
         </p>
@@ -154,14 +158,20 @@ function BettorMiniProfile({ pseudo, vibe, avatarUrl, stake }: { pseudo: string;
 }
 
 function teamColorClass(name: string) {
-  const classes = [
-    "bg-mint text-mint-deep",
-    "bg-lavender text-lavender-deep",
-    "bg-peach text-peach-deep",
-    "bg-coral text-[#7a4b47]",
-    "bg-[#d8ecff] text-[#315f78]",
-    "bg-[#fff2b8] text-[#6c5d19]",
-  ];
+  const classes = ["text-sky-deep", "text-mint-deep", "text-peach-deep", "text-coral-deep", "text-lavender-deep", "text-aqua-deep"];
   const index = name.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0) % classes.length;
+  return classes[index];
+}
+
+function userColorClass(seed: string) {
+  const classes = [
+    "border-sky text-sky-deep",
+    "border-peach text-peach-deep",
+    "border-coral text-coral-deep",
+    "border-lavender text-lavender-deep",
+    "border-mint text-mint-deep",
+    "border-sky text-aqua-deep",
+  ];
+  const index = seed.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0) % classes.length;
   return classes[index];
 }

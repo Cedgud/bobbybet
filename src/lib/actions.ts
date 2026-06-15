@@ -10,7 +10,8 @@ import { redirect } from "next/navigation";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { betSchema, matchImportSchema, profileSchema, signUpSchema } from "@/lib/validators";
+import { betSchema, matchImportSchema, matchResultSchema, profileSchema, signUpSchema } from "@/lib/validators";
+import { STARTING_TOKENS, calculateBetPoints, calculateBetRewardTokens, ensureDailyTokenGrant, getParisDateKey, getWinnerFromScore } from "@/lib/wallet";
 
 export type ActionState = {
   ok: boolean;
@@ -28,6 +29,8 @@ async function requireSession() {
   if (!session?.user?.id) {
     redirect("/auth");
   }
+
+  await ensureDailyTokenGrant(session.user.id);
 
   return session;
 }
@@ -72,6 +75,69 @@ async function saveAvatar(file: File | null) {
   return `/uploads/avatars/${fileName}`;
 }
 
+type RecalculableMatch = {
+  id: string;
+  winner: string | null;
+  homeScore: number | null;
+  awayScore: number | null;
+  bets: Array<{
+    id: string;
+    userId: string;
+    predictedHomeScore: number;
+    predictedAwayScore: number;
+    stakeAmount: number;
+    points: number | null;
+    rewardTokens: number | null;
+  }>;
+};
+
+function normalizeWinner(value: string | null) {
+  return value === "HOME" || value === "AWAY" || value === "DRAW" ? value : null;
+}
+
+async function applyMatchRewards(matches: RecalculableMatch[]) {
+  const rewardOperations = matches.flatMap((match) =>
+    match.bets.flatMap((bet) => {
+      const winner = normalizeWinner(match.winner);
+      const points = calculateBetPoints({
+        predictedHomeScore: bet.predictedHomeScore,
+        predictedAwayScore: bet.predictedAwayScore,
+        homeScore: match.homeScore,
+        awayScore: match.awayScore,
+        winner,
+      });
+      const rewardTokens = calculateBetRewardTokens({
+        predictedHomeScore: bet.predictedHomeScore,
+        predictedAwayScore: bet.predictedAwayScore,
+        homeScore: match.homeScore,
+        awayScore: match.awayScore,
+        winner,
+        stakeAmount: bet.stakeAmount,
+      });
+      const rewardDelta = (rewardTokens ?? 0) - (bet.rewardTokens ?? 0);
+
+      return [
+        prisma.bet.update({
+          where: { id: bet.id },
+          data: { points, rewardTokens },
+        }),
+        ...(rewardDelta !== 0
+          ? [
+              prisma.user.update({
+                where: { id: bet.userId },
+                data: { walletBalance: { increment: rewardDelta } },
+              }),
+            ]
+          : []),
+      ];
+    }),
+  );
+
+  if (rewardOperations.length > 0) {
+    await prisma.$transaction(rewardOperations);
+  }
+}
+
 export async function signUpAction(_previous: ActionState, formData: FormData): Promise<ActionState> {
   const parsed = signUpSchema.safeParse({
     pseudo: formData.get("pseudo"),
@@ -99,6 +165,13 @@ export async function signUpAction(_previous: ActionState, formData: FormData): 
       pseudo: parsed.data.pseudo,
       vibe: parsed.data.vibe ?? "",
       role: userCount === 0 ? "ADMIN" : "USER",
+      walletBalance: STARTING_TOKENS,
+      dailyTokenGrants: {
+        create: {
+          grantDate: getParisDateKey(),
+          amount: 0,
+        },
+      },
     },
   });
 
@@ -181,12 +254,14 @@ export async function importMatchesAction(_previous: ActionState, formData: Form
             status: match.status ?? "SCHEDULED",
             homeScore: match.homeScore ?? null,
             awayScore: match.awayScore ?? null,
+            winner: match.winner ?? getWinnerFromScore(match.homeScore ?? null, match.awayScore ?? null),
           },
           update: {
             groupName: match.group ?? null,
             status: match.status ?? "SCHEDULED",
             homeScore: match.homeScore ?? null,
             awayScore: match.awayScore ?? null,
+            winner: match.winner ?? getWinnerFromScore(match.homeScore ?? null, match.awayScore ?? null),
           },
         }),
       ),
@@ -204,23 +279,7 @@ export async function importMatchesAction(_previous: ActionState, formData: Form
       include: { bets: true },
     });
 
-    await prisma.$transaction(
-      updatedMatches.flatMap((match) =>
-        match.bets.map((bet) =>
-          prisma.bet.update({
-            where: { id: bet.id },
-            data: {
-              points: calculateBetPoints({
-                predictedHomeScore: bet.predictedHomeScore,
-                predictedAwayScore: bet.predictedAwayScore,
-                homeScore: match.homeScore,
-                awayScore: match.awayScore,
-              }),
-            },
-          }),
-        ),
-      ),
-    );
+    await applyMatchRewards(updatedMatches);
 
     revalidatePath("/");
     revalidatePath("/admin");
@@ -229,6 +288,43 @@ export async function importMatchesAction(_previous: ActionState, formData: Form
   } catch {
     return { ok: false, message: "JSON invalide ou donnees incompatibles." };
   }
+}
+
+export async function saveMatchResultAction(formData: FormData) {
+  await requireAdmin();
+
+  const parsed = matchResultSchema.safeParse({
+    matchId: formData.get("matchId"),
+    winner: formData.get("winner"),
+    homeScore: formData.get("homeScore"),
+    awayScore: formData.get("awayScore"),
+  });
+
+  if (!parsed.success) {
+    redirect("/admin");
+  }
+
+  const hasFullScore = parsed.data.homeScore !== null && parsed.data.awayScore !== null;
+  const winner = hasFullScore ? getWinnerFromScore(parsed.data.homeScore, parsed.data.awayScore) : parsed.data.winner;
+
+  const match = await prisma.match.update({
+    where: { id: parsed.data.matchId },
+    data: {
+      winner,
+      homeScore: hasFullScore ? parsed.data.homeScore : null,
+      awayScore: hasFullScore ? parsed.data.awayScore : null,
+      status: "FINISHED",
+    },
+    include: { bets: true },
+  });
+
+  await applyMatchRewards([match]);
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  revalidatePath("/account");
+  revalidatePath(`/matches/${parsed.data.matchId}`);
+  redirect("/admin");
 }
 
 export async function saveBetAction(formData: FormData) {
@@ -247,41 +343,79 @@ export async function saveBetAction(formData: FormData) {
 
   const match = await prisma.match.findUnique({
     where: { id: parsed.data.matchId },
-    select: { homeScore: true, awayScore: true },
+    select: { kickoffAt: true, status: true, homeScore: true, awayScore: true, winner: true },
   });
-  const points = match
-    ? calculateBetPoints({
-        predictedHomeScore: parsed.data.predictedHomeScore,
-        predictedAwayScore: parsed.data.predictedAwayScore,
-        homeScore: match.homeScore,
-        awayScore: match.awayScore,
-      })
-    : null;
+  if (!match || match.kickoffAt <= new Date() || match.status !== "SCHEDULED" || match.homeScore !== null || match.awayScore !== null || match.winner !== null) {
+    redirect(returnTo);
+  }
 
-  await prisma.bet.upsert({
+  const existingBet = await prisma.bet.findUnique({
     where: {
       userId_matchId: {
         userId: session.user.id,
         matchId: parsed.data.matchId,
       },
     },
-    create: {
-      userId: session.user.id,
-      matchId: parsed.data.matchId,
-      predictedHomeScore: parsed.data.predictedHomeScore,
-      predictedAwayScore: parsed.data.predictedAwayScore,
-      stakeAmount: parsed.data.stakeAmount,
-      points,
-    },
-    update: {
-      predictedHomeScore: parsed.data.predictedHomeScore,
-      predictedAwayScore: parsed.data.predictedAwayScore,
-      stakeAmount: parsed.data.stakeAmount,
-      points,
-    },
+    select: { id: true },
+  });
+  if (existingBet) {
+    redirect(returnTo);
+  }
+
+  const user = await prisma.user.findUniqueOrThrow({
+    where: { id: session.user.id },
+    select: { walletBalance: true },
+  });
+  const points = calculateBetPoints({
+    predictedHomeScore: parsed.data.predictedHomeScore,
+    predictedAwayScore: parsed.data.predictedAwayScore,
+    homeScore: match.homeScore,
+    awayScore: match.awayScore,
+    winner: normalizeWinner(match.winner),
+  });
+  const rewardTokens = calculateBetRewardTokens({
+    predictedHomeScore: parsed.data.predictedHomeScore,
+    predictedAwayScore: parsed.data.predictedAwayScore,
+    homeScore: match.homeScore,
+    awayScore: match.awayScore,
+    winner: normalizeWinner(match.winner),
+    stakeAmount: parsed.data.stakeAmount,
   });
 
+  if (user.walletBalance < parsed.data.stakeAmount) {
+    redirect(returnTo);
+  }
+
+  const walletDelta = (rewardTokens ?? 0) - parsed.data.stakeAmount;
+
+  try {
+    await prisma.$transaction([
+      prisma.bet.create({
+        data: {
+          userId: session.user.id,
+          matchId: parsed.data.matchId,
+          predictedHomeScore: parsed.data.predictedHomeScore,
+          predictedAwayScore: parsed.data.predictedAwayScore,
+          stakeAmount: parsed.data.stakeAmount,
+          points,
+          rewardTokens,
+        },
+      }),
+      ...(walletDelta !== 0
+        ? [
+            prisma.user.update({
+              where: { id: session.user.id },
+              data: { walletBalance: { increment: walletDelta } },
+            }),
+          ]
+        : []),
+    ]);
+  } catch {
+    redirect(returnTo);
+  }
+
   revalidatePath("/");
+  revalidatePath("/account");
   revalidatePath(`/matches/${parsed.data.matchId}`);
   redirect(returnTo);
 }
@@ -294,28 +428,3 @@ function safeReturnPath(value: string) {
   return value;
 }
 
-function calculateBetPoints({
-  predictedHomeScore,
-  predictedAwayScore,
-  homeScore,
-  awayScore,
-}: {
-  predictedHomeScore: number;
-  predictedAwayScore: number;
-  homeScore: number | null;
-  awayScore: number | null;
-}) {
-  if (homeScore === null || awayScore === null) {
-    return null;
-  }
-
-  const predictedWinner = Math.sign(predictedHomeScore - predictedAwayScore);
-  const actualWinner = Math.sign(homeScore - awayScore);
-  let points = predictedWinner === actualWinner ? 1 : 0;
-
-  if (predictedHomeScore === homeScore && predictedAwayScore === awayScore) {
-    points += 2;
-  }
-
-  return points;
-}

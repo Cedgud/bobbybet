@@ -42,7 +42,7 @@ export function AuthForm() {
           type="button"
           onClick={() => setMode("login")}
           className={`flex h-10 flex-1 items-center justify-center gap-2 text-sm font-bold transition ${
-            mode === "login" ? "bg-mint text-mint-deep" : "text-ink-soft"
+            mode === "login" ? "border-b-2 border-ink text-ink" : "text-ink-soft"
           }`}
         >
           <LogIn size={16} />
@@ -52,7 +52,7 @@ export function AuthForm() {
           type="button"
           onClick={() => setMode("signup")}
           className={`flex h-10 flex-1 items-center justify-center gap-2 text-sm font-bold transition ${
-            mode === "signup" ? "bg-lavender text-lavender-deep" : "text-ink-soft"
+            mode === "signup" ? "border-b-2 border-ink text-ink" : "text-ink-soft"
           }`}
         >
           <UserPlus size={16} />

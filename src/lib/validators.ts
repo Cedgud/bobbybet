@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+const optionalScoreSchema = z.preprocess(
+  (value) => (value === "" || value === null || value === undefined ? null : value),
+  z.coerce.number().int().min(0).max(30).nullable(),
+);
+
 export const signUpSchema = z.object({
   pseudo: z.string().trim().min(2, "Le pseudo doit contenir au moins 2 caracteres.").max(32),
   email: z.string().trim().email("Email invalide.").toLowerCase(),
@@ -29,5 +34,13 @@ export const matchImportSchema = z.array(
     status: z.enum(["SCHEDULED", "LIVE", "FINISHED"]).optional(),
     homeScore: z.number().int().min(0).nullable().optional(),
     awayScore: z.number().int().min(0).nullable().optional(),
+    winner: z.enum(["HOME", "AWAY", "DRAW"]).nullable().optional(),
   }),
 );
+
+export const matchResultSchema = z.object({
+  matchId: z.string().min(1),
+  winner: z.enum(["HOME", "AWAY", "DRAW"]),
+  homeScore: optionalScoreSchema,
+  awayScore: optionalScoreSchema,
+});

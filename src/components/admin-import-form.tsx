@@ -15,7 +15,7 @@ export function AdminImportForm() {
     <form action={formAction} className="flex w-full flex-col gap-5">
       <label className="flex flex-col gap-2 text-xs font-bold uppercase tracking-[0.12em] text-ink-soft">
         Fichier JSON
-        <span className="flex items-center gap-3 border-2 border-dashed border-surface-high bg-surface-low px-4 py-4 text-ink-soft">
+        <span className="flex items-center gap-3 border-2 border-dashed border-surface-high bg-white px-4 py-4 text-ink-soft">
           <FileJson size={18} />
           <input className="w-full text-sm" name="matchesFile" type="file" accept="application/json,.json" />
         </span>

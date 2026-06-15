@@ -20,9 +20,22 @@ model User {
   vibe         String    @default("")
   avatarUrl    String?
   role         String    @default("USER")
+  walletBalance Int      @default(500)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   bets         Bet[]
+  dailyTokenGrants DailyTokenGrant[]
+}
+
+model DailyTokenGrant {
+  id        String   @id @default(cuid())
+  userId    String
+  grantDate String
+  amount    Int      @default(100)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, grantDate])
 }
 
 model Match {
@@ -35,6 +48,7 @@ model Match {
   status      String    @default("SCHEDULED")
   homeScore   Int?
   awayScore   Int?
+  winner      String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   bets        Bet[]
@@ -50,6 +64,7 @@ model Bet {
   predictedAwayScore Int
   stakeAmount        Int      @default(100)
   points             Int?
+  rewardTokens       Int?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)

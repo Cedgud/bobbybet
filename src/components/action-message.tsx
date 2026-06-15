@@ -12,8 +12,8 @@ export function ActionMessage({ ok, message }: { ok: boolean; message: string })
       className={clsx(
         "border px-3 py-2 text-sm",
         ok
-          ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-          : "border-rose-200 bg-rose-50 text-rose-800",
+          ? "border-surface-high bg-white text-ink"
+          : "border-surface-high bg-white text-ink-soft",
       )}
     >
       {message}
