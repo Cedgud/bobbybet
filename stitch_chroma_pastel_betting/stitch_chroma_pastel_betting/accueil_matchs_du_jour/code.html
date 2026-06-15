@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>BetPlay - Accueil</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            scroll-behavior: smooth;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#191c1d",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#b9eedb",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#e5c09c",
+                      "surface-dim": "#d9dadb",
+                      "secondary": "#685970",
+                      "surface": "#f8f9fa",
+                      "on-secondary-fixed": "#22172a",
+                      "on-tertiary-fixed": "#2b1702",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed": "#002018",
+                      "secondary-fixed": "#efdcf7",
+                      "surface-container": "#edeeef",
+                      "primary-fixed-dim": "#9dd1bf",
+                      "on-tertiary-container": "#795d3f",
+                      "on-primary-container": "#396b5c",
+                      "background": "#f8f9fa",
+                      "on-secondary-fixed-variant": "#4f4257",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#9dd1bf",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#191c1d",
+                      "surface-tint": "#366758",
+                      "primary": "#366758",
+                      "outline": "#707975",
+                      "primary-container": "#b5ead7",
+                      "outline-variant": "#c0c9c4",
+                      "secondary-container": "#ecd9f4",
+                      "on-primary-fixed-variant": "#1c4f41",
+                      "surface-bright": "#f8f9fa",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#404945",
+                      "surface-container-low": "#f3f4f5",
+                      "tertiary": "#75593c",
+                      "tertiary-container": "#ffd8b3",
+                      "on-tertiary-fixed-variant": "#5b4226",
+                      "surface-variant": "#e1e3e4",
+                      "inverse-surface": "#2e3132",
+                      "inverse-on-surface": "#f0f1f2",
+                      "secondary-fixed-dim": "#d3c0db",
+                      "error": "#ba1a1a",
+                      "on-secondary-container": "#6c5d74",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-container-high": "#e7e8e9",
+                      "tertiary-fixed": "#ffdcbc"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "48px",
+                      "sm": "12px",
+                      "gutter": "24px",
+                      "container-max": "1200px",
+                      "xl": "80px",
+                      "md": "24px",
+                      "xs": "4px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "title-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "mood-phrase": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "mood-phrase": ["14px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                      "label-sm": ["13px", {"lineHeight": "1.2", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto bg-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-sm">
+<img alt="Alex Rivers" class="w-12 h-12 rounded-full bg-surface-container-high shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-nSGg4VNRt4AJGjPcJz-x4gYTv1FP4aLdIJ5ZDUGMGmwkl1un_ZnjEujKyCPNdYgK-KuQF70jsQPzWk1RbWsUOEXFS33k9iVN-DritzDTWJ1b4pBaNCZYhDCcjzOhj9l40Bq3QkmA_gRE9qhyivjFkvC18ktloDQJfb7-h9_hhpTE8Q415EyTlFnBz1k_20-oOgkJ9giJ6kMnjD6i5m7aYWnbp2LSHdQgdzuVWCA5PavujXgRKvdsOrgz2HXxSsNHYXktAYaFjU0"/>
+<div class="flex flex-col">
+<h2 class="font-title-md text-title-md text-on-surface leading-tight">Alex Rivers</h2>
+<p class="font-mood-phrase text-mood-phrase text-on-surface-variant">Feeling lucky today</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-full font-label-sm text-label-sm flex items-center gap-2 hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-sm">account_balance_wallet</span>
+                $1,250.00
+            </button>
+</div>
+</header>
+<main class="pt-24 px-gutter max-w-container-max mx-auto space-y-lg">
+<!-- Hero Section / Animated Background Element -->
+<section class="relative h-48 md:h-64 rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] bg-primary-container flex items-center p-md">
+<div class="z-10 relative max-w-md">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary-container mb-2">Grand Slam Finals</h1>
+<p class="text-on-primary-container/80 font-body-md mb-4">Plongez dans l'action avec des cotes boostées pour le match de ce soir.</p>
+<button class="bg-on-primary-container text-surface px-6 py-2 rounded-full font-label-sm text-label-sm transition-transform active:scale-95 shadow-sm">Parier maintenant</button>
+</div>
+<div class="absolute right-0 top-0 w-1/2 h-full opacity-30 pointer-events-none">
+<!-- Placeholder for high-end aesthetic visual -->
+<img alt="Abstract Tennis" class="w-full h-full object-cover" data-alt="A clean and artistic photographic composition of a tennis ball resting on a pristine lavender clay court. The lighting is soft and natural, emphasizing textures and the pastel color palette. The aesthetic is high-end, minimalist, and serene, avoiding any sports-bar clutter. Soft shadows and focus create a professional lifestyle atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDInG32Jczu2_ifHHIy5aMuU-9R1UTd17OJcTY7R3m9ak76y8F49a0r06-T1QsxUQbSLLDQOU2x9-Lo3fPLqClUa9yN3KkSmXgMTay6_R0wyU_35HG_IbQ4A-i9SZqUXp9HipTt7htDp1RIAh9NLWDi6GcwEYs_CKFTL4UIB_Q8g9Jl39c72BTctVR3fwdTCvQpwXvMOIw5e7_LgVVU_-5uL6h76jE-4b6BzG0gR5m6njUFJ_LjQ1zH03Rfa26v43nJnpM7A2ablDM"/>
+</div>
+</section>
+<!-- Categories horizontal scroll -->
+<div class="flex gap-sm overflow-x-auto hide-scrollbar pb-2">
+<button class="flex-shrink-0 bg-primary text-on-primary px-6 py-2 rounded-full font-label-sm text-label-sm transition-all shadow-sm">Tout</button>
+<button class="flex-shrink-0 bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label-sm text-label-sm hover:bg-surface-container-highest transition-all">Football</button>
+<button class="flex-shrink-0 bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label-sm text-label-sm hover:bg-surface-container-highest transition-all">Tennis</button>
+<button class="flex-shrink-0 bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label-sm text-label-sm hover:bg-surface-container-highest transition-all">Basketball</button>
+<button class="flex-shrink-0 bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label-sm text-label-sm hover:bg-surface-container-highest transition-all">Esports</button>
+</div>
+<!-- Matchs du jour Section -->
+<section class="space-y-sm">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-title-md text-title-md text-on-surface">Matchs du jour</h3>
+<a class="text-primary font-label-sm text-label-sm hover:underline" href="#">Voir tout</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Match Card 1: Football (Menthe) -->
+<div class="bg-surface rounded-xl p-md shadow-[0_4px_20px_rgba(0,0,0,0.04)] border-l-8 border-primary-container hover:translate-y-[-2px] transition-transform duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">sports_soccer</span>
+<span class="font-label-sm text-label-sm">Premier League • 21:00</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">star</span>
+</div>
+<div class="flex items-center justify-between gap-md mb-lg">
+<div class="flex-1 flex flex-col items-center gap-sm">
+<img alt="MC" class="w-12 h-12 rounded-full bg-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo3N7LGzTIpuGIR0Jx2DpW4TjeSKz6G4z4mhGhu9VBqiFBn869gERGunqWvdtNug4EHzTSxndZc-yHy2n3tuodvVT5rUg2UxvwgntMn6nUNauY0wlnEo9FXtsIzRaFS4S-RsvtbsFNyoa1eLIdTRK_rG1QF6alCJHLcaDn9cEdhci9xi49pfDp4wcFWadW0c5gnpNnWeZpFt8S58TVBMvKsXgLBhQvoS7CJeAfdLYS5kQxhFqBKwrb156-3mp2To9fh-UUv__t1jk"/>
+<span class="font-label-sm text-label-sm text-center">Man. City</span>
+</div>
+<div class="flex flex-col items-center gap-xs">
+<span class="font-display-lg text-[24px] text-on-surface-variant opacity-30">VS</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<img alt="LV" class="w-12 h-12 rounded-full bg-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQlscqgesZwPYoHtD-JrOcZoqBuRyYAGirX3Dyi0OFPpwipZoHkkpZiI_6wU6_cAtgU0kuxWkb_1TcTOvxebgjtbx7-yHE7eCbvTxPUc_UJLrSNnHBK4RDo1gptOJUEo01_m_RxHvNEa2oUhsN2yUp-W-gPzWhHMrqujgUONd9DlFIIa3YrFxdD2VKbZMHqOvQFq2sbcoyG3ZfeeXe0pnpeJKXsgEUCzloTAkWH27NkRz45GpEiLiZayzZKpzGxfh7BwUPcVTB8qc"/>
+<span class="font-label-sm text-label-sm text-center">Liverpool</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-base">
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-primary-fixed transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">1</span>
+<span class="font-title-md text-title-md text-primary">1.85</span>
+</button>
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-primary-fixed transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">N</span>
+<span class="font-title-md text-title-md text-primary">3.40</span>
+</button>
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-primary-fixed transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">2</span>
+<span class="font-title-md text-title-md text-primary">4.20</span>
+</button>
+</div>
+</div>
+<!-- Match Card 2: Tennis (Lavande) -->
+<div class="bg-surface rounded-xl p-md shadow-[0_4px_20px_rgba(0,0,0,0.04)] border-l-8 border-secondary-container hover:translate-y-[-2px] transition-transform duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">sports_tennis</span>
+<span class="font-label-sm text-label-sm">ATP Masters • En direct</span>
+</div>
+<div class="px-2 py-0.5 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase tracking-wider">Live</div>
+</div>
+<div class="flex items-center justify-between gap-md mb-lg">
+<div class="flex-1 flex flex-col items-center gap-sm">
+<img alt="ND" class="w-12 h-12 rounded-full bg-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3RNbRLhDsJ8ULMDPHYzyxlHBgAG_C9BykJu7W_GSKHk2hYm0dwYKj4Eo1kSdmHHXPUNGSUya5RoJ5WhULFiyg-E-vVSgDUh9_qwMwS2_S_lvfBp7ZmMJAZwkmn18wxhPy11FOKQLjs2o09tL8Q0H_A36UZNXI62T-CIhyGeoltThfjT5dWTXdDQY0nd449AX27moBn8Tft82qT4vP2QcBI7BWDS0Wzo12LThfZGV-qqEdIiafbiVWalDJXzRtlUd5NlldKFSOe4Q"/>
+<span class="font-label-sm text-label-sm text-center">Djokovic</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-display-lg text-[20px] text-on-surface-variant">2 - 1</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<img alt="CA" class="w-12 h-12 rounded-full bg-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJiu7E8A3ZsvYYL1Mp0XxiBDyASmlQKgnskqvCI8A3BawMrwmYu4bvPgiDofD7LSD5mJOWpJVLgixHKo1sK56BiAt8dlnQc7eV6WrHtnYq6JJjEiQ03XOGi1WALN2vTtnnGy68g9Z4P7uThdj1P95CzUCkLj9j7rJw5t7YKveBWwVd4K1wjXcoqkoPz4d5Jf5EjRMwPkc5vmW0U6DX60bO9jVs3Uz0uJl1o95lRFp8_zOkAa2ak4jvoR5eWnJHEWurQ1FtTsQ04C0"/>
+<span class="font-label-sm text-label-sm text-center">Alcaraz</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-base">
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-secondary-container transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-secondary">1</span>
+<span class="font-title-md text-title-md text-secondary">1.42</span>
+</button>
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-secondary-container transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-secondary">2</span>
+<span class="font-title-md text-title-md text-secondary">2.85</span>
+</button>
+</div>
+</div>
+<!-- Match Card 3: Football (Menthe) -->
+<div class="bg-surface rounded-xl p-md shadow-[0_4px_20px_rgba(0,0,0,0.04)] border-l-8 border-primary-container hover:translate-y-[-2px] transition-transform duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">sports_soccer</span>
+<span class="font-label-sm text-label-sm">La Liga • 22:15</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">star</span>
+</div>
+<div class="flex items-center justify-between gap-md mb-lg">
+<div class="flex-1 flex flex-col items-center gap-sm">
+<img alt="RM" class="w-12 h-12 rounded-full bg-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwkiLHVrdzIypeYyFCIVdtIBbiUZxcd0Y_ZsdF9jROnc5bwkf9Ef7Mzwzbd4_IUS9stLMw8StZrrfcMTrfzY0ar5Gr9GbOCIOG9dn-sji_BzBX-J2U3_RnfxyBUqccgeN5-2dvnqkVlvA6TUOJHLvngILMzDWbN1aBDt_aE9nf3hFi7zBnLNpF4RDbjs_HCt_M6JmEejbO61VgltoVvfH8BvYQzCCrjL42BNOlWqR-AZEEpI69JDboffUj1WxdoAki_79XW_6scEw"/>
+<span class="font-label-sm text-label-sm text-center">Real Madrid</span>
+</div>
+<div class="flex flex-col items-center gap-xs">
+<span class="font-display-lg text-[24px] text-on-surface-variant opacity-30">VS</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<img alt="BM" class="w-12 h-12 rounded-full bg-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx4n2W18jL6FMFpdjq3gGBH0OEnbt2JzgE29lhy00vTK8UHiYuFZ1sjnDWeFrh-LETpY8ZCADJTEkm3rAVU8Yb4zlM4OTCq_Vcsp_NOkE8lot6_Kw2V4OvN6FBF65Pnht83izJkhBGbKBx9D_aFYYPFfb961-NAGwxvicEMBuG4TRgOyQ0oZ2guLeNqxlKxhPf8DvDR681dItLlyOHY0pDTaU8v4Euaeq2ViK6q8XaCPFdLhaJev-7IyMfhjvNnJT6oIHFHJbtEZc"/>
+<span class="font-label-sm text-label-sm text-center">Barcelona</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-base">
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-primary-fixed transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">1</span>
+<span class="font-title-md text-title-md text-primary">2.10</span>
+</button>
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-primary-fixed transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">N</span>
+<span class="font-title-md text-title-md text-primary">3.25</span>
+</button>
+<button class="flex flex-col items-center justify-center p-sm bg-surface-container-low rounded-lg hover:bg-primary-fixed transition-colors active:scale-95 group">
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-primary">2</span>
+<span class="font-title-md text-title-md text-primary">3.40</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid Style - Upcoming Special Match -->
+<div class="md:col-span-1 bg-surface-container-highest rounded-xl p-md shadow-[0_4px_20px_rgba(0,0,0,0.04)] flex flex-col justify-between hover:translate-y-[-2px] transition-transform duration-300">
+<div>
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-base">Exclusive Odds</h4>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-sm">Champion's Night</h3>
+<p class="font-body-md text-on-surface-variant mb-md">Prédisez le score exact et multipliez vos gains par 15.</p>
+</div>
+<button class="w-full bg-surface text-primary py-3 rounded-xl font-label-sm text-label-sm border border-outline-variant hover:bg-primary hover:text-on-primary transition-all">Consulter les offres</button>
+</div>
+</div>
+</section>
+<!-- Extra whitespace for scroll clearance -->
+<div class="h-12"></div>
+</main>
+<!-- Floating Action Button (Contextual for Home) -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface/80 backdrop-blur-md rounded-t-xl shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-6 py-1 transition-transform duration-300 ease-out active:scale-110">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-label-sm text-label-sm">My Bets</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        // Micro-interaction for odds buttons
+        document.querySelectorAll('button.group').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const isSelected = this.classList.contains('bg-primary-container') || this.classList.contains('bg-secondary-container');
+                
+                // Clear others in the same row
+                const parent = this.parentElement;
+                parent.querySelectorAll('button').forEach(b => {
+                    b.classList.remove('bg-primary-container', 'bg-secondary-container', 'scale-95');
+                    b.classList.add('bg-surface-container-low');
+                });
+
+                if (!isSelected) {
+                    const highlightClass = this.closest('.border-primary-container') ? 'bg-primary-container' : 'bg-secondary-container';
+                    this.classList.remove('bg-surface-container-low');
+                    this.classList.add(highlightClass);
+                }
+            });
+        });
+    </script>
+</body></html>

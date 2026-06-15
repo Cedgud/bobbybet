@@ -1,0 +1,16 @@
+[
+  {
+    "competition": "Coupe du Monde 2026",
+    "homeTeam": "France",
+    "awayTeam": "Bresil",
+    "kickoffAt": "2026-06-18T19:00:00Z",
+    "group": "Groupe A"
+  },
+  {
+    "competition": "Coupe du Monde 2026",
+    "homeTeam": "Espagne",
+    "awayTeam": "Japon",
+    "kickoffAt": "2026-06-19T16:00:00Z",
+    "group": "Groupe B"
+  }
+]

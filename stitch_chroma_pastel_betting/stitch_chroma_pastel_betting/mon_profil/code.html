@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1d",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#b9eedb",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#e5c09c",
+                    "surface-dim": "#d9dadb",
+                    "secondary": "#685970",
+                    "surface": "#f8f9fa",
+                    "on-secondary-fixed": "#22172a",
+                    "on-tertiary-fixed": "#2b1702",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#002018",
+                    "secondary-fixed": "#efdcf7",
+                    "surface-container": "#edeeef",
+                    "primary-fixed-dim": "#9dd1bf",
+                    "on-tertiary-container": "#795d3f",
+                    "on-primary-container": "#396b5c",
+                    "background": "#f8f9fa",
+                    "on-secondary-fixed-variant": "#4f4257",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#9dd1bf",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1d",
+                    "surface-tint": "#366758",
+                    "primary": "#366758",
+                    "outline": "#707975",
+                    "primary-container": "#b5ead7",
+                    "outline-variant": "#c0c9c4",
+                    "secondary-container": "#ecd9f4",
+                    "on-primary-fixed-variant": "#1c4f41",
+                    "surface-bright": "#f8f9fa",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#404945",
+                    "surface-container-low": "#f3f4f5",
+                    "tertiary": "#75593c",
+                    "tertiary-container": "#ffd8b3",
+                    "on-tertiary-fixed-variant": "#5b4226",
+                    "surface-variant": "#e1e3e4",
+                    "inverse-surface": "#2e3132",
+                    "inverse-on-surface": "#f0f1f2",
+                    "secondary-fixed-dim": "#d3c0db",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#6c5d74",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed": "#ffdcbc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "48px",
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "xl": "80px",
+                    "md": "24px",
+                    "xs": "4px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "mood-phrase": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "mood-phrase": ["14px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "label-sm": ["13px", {"lineHeight": "1.2", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px rgba(0,0,0, 0.04);
+        }
+        .profile-input:focus {
+            background-color: #f1f3f5;
+            border-color: #b9eedb;
+            outline: none;
+        }
+        .glass-nav {
+            backdrop-filter: blur(10px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-sm max-w-container-max mx-auto bg-surface/80 backdrop-blur-md">
+<h1 class="font-display-lg text-headline-lg text-primary tracking-tight">BetPlay</h1>
+<div class="flex items-center gap-base">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container rounded-full px-4 py-2">$1,250.00</span>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile Avatar" data-alt="A professional studio portrait of a friendly young man with a slight smile, set against a soft pastel mint background. The lighting is bright and airy, reflecting a clean minimalist aesthetic. The image uses a shallow depth of field to keep the focus entirely on the person's welcoming expression, conveying a sense of trust and modern simplicity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSIP-vASujTprU4eTAxc99OcGzIXkqqhytyepKDTx5K3g6eLhksrEHkILMHf1kn6oF64NhS7z1HhM5TvOq6DYw8SxhbjF71RqTaxRdXKPQEPk6cj4d2EUN3TfaO18PuGPW-W2Kn5YkjTIBERka16IkpqdS5DiHF5hl6ME9m3sLNlD6mIhvfnwmH_v8v0gqYfAGnd50X-vcjIC2pxHxGmNxzpvH0-HsvQYV06xlvs3mYxEJTuzawOLbxMAHQmRaHf-Xjc2hszlKXFU"/>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-32 px-gutter max-w-[600px] mx-auto min-h-screen">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center mb-lg">
+<div class="relative group">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden soft-shadow bg-surface-container-highest border-4 border-white">
+<img alt="Alex Rivers" class="w-full h-full object-cover" data-alt="Detailed close-up portrait of a cheerful person with a warm smile, positioned in a bright and airy environment. The lighting is soft and natural, emphasizing a calm and playful minimalist atmosphere. The background is a solid, extremely light lavender, maintaining a high-key, gender-neutral aesthetic consistent with a modern premium lifestyle brand." id="profile-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMlvJ8QSdX5e97su4pR0viBpkvoG3ULSEAjNjDUar1E9yHPdf-fb8N8dIEIvmsGA9Ov6Y8wHT_UiXP5u9siz5eBz7b3gXcu58wMmpsDe6aO5j6R5oA_qjLkc7BfCGpU9fjxgjlgggneT2WOGTD2NhcvQqvJpklsvNOeT1_7pNX4jtb2Vez-3GTT9gZ7WmxQmVQT2aKooGzsI44qjkkaKne9s5ltXiRZk6BGESegsFlSJh1Q95G0JbRDY2-tx3IlseGSqAyM0tyDeM"/>
+</div>
+<button class="absolute bottom-1 right-1 bg-primary-container text-on-primary-container w-10 h-10 rounded-full flex items-center justify-center soft-shadow hover:scale-105 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</div>
+<div class="mt-md text-center">
+<h2 class="font-title-md text-title-md text-on-surface">Alex Rivers</h2>
+<p class="font-mood-phrase text-mood-phrase text-outline italic">"Feeling lucky today"</p>
+</div>
+</section>
+<!-- Edit Fields -->
+<section class="space-y-lg">
+<div class="space-y-base">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-sm">Pseudo</label>
+<div class="relative">
+<input class="w-full bg-[#F1F3F5] border-transparent border-2 rounded-xl px-md py-4 font-body-md text-body-md profile-input transition-all duration-200" placeholder="Entrez votre pseudo" type="text" value="Alex Rivers"/>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-primary-fixed-dim" data-icon="badge">badge</span>
+</div>
+</div>
+<div class="space-y-base">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-sm">Phrase d'ambiance</label>
+<div class="relative">
+<input class="w-full bg-[#F1F3F5] border-transparent border-2 rounded-xl px-md py-4 font-body-md text-body-md profile-input transition-all duration-200" placeholder="Votre humeur du jour..." type="text" value="Feeling lucky today"/>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-secondary-fixed-dim" data-icon="auto_awesome">auto_awesome</span>
+</div>
+</div>
+<!-- Settings Links -->
+<div class="pt-base space-y-sm">
+<div class="flex items-center justify-between p-md bg-white rounded-xl soft-shadow hover:opacity-80 cursor-pointer transition-opacity">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</div>
+<span class="font-body-md text-body-md">Notifications</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-md bg-white rounded-xl soft-shadow hover:opacity-80 cursor-pointer transition-opacity">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+</div>
+<span class="font-body-md text-body-md">Sécurité du compte</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-md bg-white rounded-xl soft-shadow hover:opacity-80 cursor-pointer transition-opacity">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<span class="font-body-md text-body-md">Méthodes de paiement</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Save Button -->
+<button class="w-full bg-primary-fixed text-on-primary-fixed font-title-md text-title-md py-4 rounded-full soft-shadow hover:opacity-90 active:scale-[0.98] transition-all duration-200 mt-md">
+                Enregistrer les modifications
+            </button>
+<button class="w-full text-error font-label-sm text-label-sm py-2 hover:underline">
+                Se déconnecter
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface/80 backdrop-blur-md rounded-t-xl shadow-[0_-4px_20px_rgba(0,0,0,0.04)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:text-primary transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-6 py-1 hover:text-primary transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="Confirmation_Number">confirmation_number</span>
+<span class="font-label-sm text-label-sm mt-1">My Bets</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-6 py-1 scale-110 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for input fields
+        const inputs = document.querySelectorAll('.profile-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Toggle "active" class logic based on the user's focus
+        // This simulates navigation state. The current page is "Profile" as requested.
+    </script>
+</body></html>
